@@ -1,0 +1,124 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+        
+       <script type="text/javascript" src="Principal.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Traductor</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor02">
+              
+              
+            </div>
+          </nav>
+          
+        <div >
+            
+            <form action="" id="form">
+                <div class="jumbotron">
+                    <h4>Entrada C#</h4>    
+                    <textarea class="form-control" id="entrada" name="entrada" rows="15" style="margin-top: 0px; margin-bottom: 0px;"></textarea>
+                    <br>
+                    <button type="button" onclick="Lex.prototype.analizar()"  class="btn btn-info">Analizar</button>
+                    <input type="file" id="btn_abrir" /><br><br>
+                </div>
+            </form>       
+        </div>
+        <div >
+            <div class="jumbotron"> 
+                <h4>Salida Python</h4>
+           
+              <textarea class="form-control" id="txt_consolapy" readonly name="txt_consolapy" rows="5" style="margin-top: 0px; margin-bottom: 0px;"></textarea>
+              <br><button type="button" class="btn btn-danger" id="btn_py" onclick="ocultar('txt_consolapy','btn_py')">Ocultar</button>
+              <a class="btn btn-danger" id="btn_guardar_py" onclick="guardar_archivo('btn_guardar_py','txt_consolapy','Traduccion.py')">Guardar PY</a>
+            </div>
+        </div>
+        <div>
+            <div class="jumbotron" > 
+                 <h4>Tabla de variables</h4>
+                <div name="div_tb_var" id="div_tb_var">
+
+                </div><br>
+                <button type="button" class="btn btn-danger" id="btn_tbv" onclick="ocultar('div_tb_var','btn_tbv')">Ocultar</button>
+            </div>
+        </div>
+        <div >
+            <div class="jumbotron"> 
+                <h4>Texto HTML</h4>
+           
+              <textarea class="form-control" id="txt_consolahtml" readonly name="txt_consolahtml" rows="5" style="margin-top: 0px; margin-bottom: 0px;"></textarea>
+              <br><button type="button" class="btn btn-danger" id="btn_html" onclick="ocultar('txt_consolahtml','btn_html')">Ocultar</button>
+              <a  class="btn btn-danger" id="btn_guardar_html" onclick="guardar_archivo('btn_guardar_html','txt_consolahtml','pag.html')">Guardar HTML</a>
+            </div>
+        </div>
+        <div >
+            <div class="jumbotron"> 
+                <h4>Texto JSON</h4>
+           
+              <textarea class="form-control" id="txt_consolajson" readonly name="txt_consolajson" rows="5" style="margin-top: 0px; margin-bottom: 0px;"></textarea>
+              <br><button type="button" class="btn btn-danger" id="btn_json" onclick="ocultar('txt_consolajson','btn_json')">Ocultar</button>
+            </div>
+        </div>
+        
+        <div>
+            <div class="jumbotron" > 
+                <h4>Tabla de Errores Lexicos</h4>
+                
+                <div name="div_tb_el" id="div_tb_el">
+
+                </div><br>
+                <button type="button" class="btn btn-danger" id="btn_tbel" onclick="ocultar('div_tb_el','btn_tbel')">Ocultar</button>
+            </div>
+        </div>
+        <div>
+            <div class="jumbotron" > 
+                    <h4>Tabla de Errores Sintacticos</h4>
+                
+           
+                <div name="div_tb_es" id="div_tb_es">
+
+                </div><br>
+                <button type="button" class="btn btn-danger" id="btn_tbes" onclick="ocultar('div_tb_es','btn_tbes')">Ocultar</button>
+            </div>
+        </div>
+        <script>
+            abrir_archivo();
+            function ocultar(name, btn){
+               var ocult = document.getElementById(name);
+               var bot =  document.getElementById(btn);
+
+               if(ocult.style.display == 'block'){
+                    ocult.style.display = 'none';
+                    bot.innerText = "Mostrar";
+               }else{
+                ocult.style.display = 'block';
+                    bot.innerText = "Ocultar";
+
+               }
+
+            }
+            function abrir_archivo(){
+                document.getElementById("btn_abrir").addEventListener('change', function(){
+                    var file = new FileReader();
+                    file.onload = function(){
+                        document.getElementById("entrada").textContent = this.result;
+                    }
+                    file.readAsText(this.files[0]);
+                })
+            }
+            function guardar_archivo(btn,text_area,name){
+            
+                var texto_obtenido = document.getElementById(text_area).value;
+                    var file = document.getElementById(btn);
+                    file.download = name;
+                    file.href = "data:application/octet-stream," 
+                     + encodeURIComponent(texto_obtenido);
+              };
+            
+        </script>
+    </body>
+</html>    
